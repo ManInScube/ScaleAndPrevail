@@ -16,15 +16,33 @@ public class UnitModel : MonoBehaviour
 
     private UnitMovement um;
 
+    private Animator animator;
+
+    public enum Type
+    {
+        MeleeHuman,
+        RangeHuman,
+        MeleeMech,
+        RangeMech
+    }
+
+
 
     void Start()
     {
-        
+        try
+        {
+            animator = GetComponent<Animator>();
+        }
+        catch
+        {
+            Debug.Log("There's no animator");
+        }
     }
 
     private void OnEnable()
     {
-        UnitMovement.EnemyAction += TargetHandler;
+        UnitMovement.TargetAction += TargetHandler;
     }
 
     private void TargetHandler(Enemy en)
@@ -39,11 +57,6 @@ public class UnitModel : MonoBehaviour
 
     void Update()
     {
-        /*        if (isAttacking)
-                {
-                    Attack();
-                }*/
-
         if (target!=null)
         {
             
@@ -61,7 +74,11 @@ public class UnitModel : MonoBehaviour
 
     private void Attack()
     {
-            
+        if (animator) 
+        {
+            animator.SetBool("isAttacking", true);
+        }
+
             dps = attackSpeed * attackDamage * Time.deltaTime;
             target.GetComponent<Enemy>().ReceiveDamage(dps);
             Debug.Log("Attacking");

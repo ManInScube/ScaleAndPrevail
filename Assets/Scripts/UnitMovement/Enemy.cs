@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,12 +8,18 @@ public class Enemy : MonoBehaviour
     float health;
 
     float maxHealth = 100;
+
+    [SerializeField] uint enemiesCount;
+    [SerializeField] uint mindStrength;
+    private uint Complexity { get { return (uint)Mathf.Floor(uintsCount / enemiesCount * 10); } } //TODO: доработать сделать в string значение
+
+    private uint uintsCount;
+
     void Start()
     {
         health = maxHealth;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -34,4 +40,14 @@ public class Enemy : MonoBehaviour
     {
 
     }
+
+    public void WinCondition()
+    {
+        if (enemiesCount < enemiesCount / 2)
+        {
+
+        }
+    }
+
+
 }

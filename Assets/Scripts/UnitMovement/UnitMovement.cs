@@ -9,22 +9,20 @@ public class UnitMovement : MonoBehaviour
 {
 
     private Unit[] units;
-    private bool isMooving = false;
+    private bool isMoving = false;
 
     private Vector3 destination;
 
     private UnitModel unitModel;
     private UnitManager unitManager;
 
-
-    public static event Action<Enemy> EnemyAction;
+    public static event Action<Enemy> TargetAction;
     void Start()
     {
         units = GameObject.FindObjectsOfType<Unit>();
         unitManager = GameObject.FindObjectOfType<UnitManager>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -32,9 +30,9 @@ public class UnitMovement : MonoBehaviour
             SetPosition();
         }
 
-        if (isMooving)
+        if (isMoving)
         {
-            Moove(destination);
+            MoveSquad(destination);
         }
     }
 
@@ -46,10 +44,15 @@ public class UnitMovement : MonoBehaviour
         if (Physics.Raycast(ray, out hit, Mathf.Infinity))
         {
             // return;
+            bool isOverUI = UnityEngine.EventSystems.EventSystem.current.IsPointerOverGameObject();
+            if (isOverUI)
+            {
+                return;
+            }
             if (hit.transform.CompareTag("Ground"))
             {
                 destination = hit.point;
-                isMooving = true;
+                isMoving = true;
             }
             if (hit.transform.CompareTag("Enemy"))
             {
@@ -57,16 +60,16 @@ public class UnitMovement : MonoBehaviour
                 foreach (Unit unit in units)
                 {
                     //unitModel.GetComponent<UnitModel>().target = hit.collider.transform.gameObject.GetComponent<Enemy>();
-                    EnemyAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
+                    TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
                 }
                 destination = hit.point;
-                isMooving = true;
-                Debug.Log(unitModel.target);
+                isMoving = true;
+                //Debug.Log(unitModel.target);
             }
         }
     }
 
-    private void Moove(Vector3 dest)
+    private void MoveSquad(Vector3 dest)
     {
             foreach (Unit unit in units)
             {
@@ -74,7 +77,7 @@ public class UnitMovement : MonoBehaviour
 
                 if (unit.gameObject.transform.position == dest)
                 {
-                    isMooving = false;
+                    isMoving = false;
                 }
             }
     }
