@@ -71,15 +71,26 @@ public class UnitMovement : MonoBehaviour
 
     private void MoveSquad(Vector3 dest)
     {
-            foreach (Unit unit in units)
-            {
-                unit.MoveToPoint(dest);
+        /*            foreach (Unit unit in units)
+                    {
+                        unit.MoveToPoint(dest);
 
-                if (unit.gameObject.transform.position == dest)
-                {
-                    isMoving = false;
-                }
-            }
+                        if (unit.gameObject.transform.position == dest)
+                        {
+                            isMoving = false;
+                        }
+                    }*/
+        List<Vector3> positions = CalculatePositions(dest);
+        for (int i= 0; i<=units.Length; i++)
+        {
+            units[i].MoveToPoint(positions[i]);
+
+/*            if (unit.gameObject.transform.position == dest)
+            {
+                isMoving = false;
+            }*/
+            //dest += new Vector3(1f, 0f, 0f);
+        }
     }
 
     public void SwitchSquad(UnitManager.Units unit)
@@ -98,6 +109,29 @@ public class UnitMovement : MonoBehaviour
             default:
                 break;
         }
+    }
+
+    public List<Vector3> CalculatePositions(Vector3 dest)
+    {
+        List<Vector3> positions = new List<Vector3>();
+        
+        int square = (int)Mathf.Floor(Mathf.Sqrt(units.Length));
+        Debug.Log(square);
+        Vector3 pos;
+        pos = dest;
+        for (int i = 0; i<=square - 1; i++)
+        {
+            for (int j = 0; j <= square - 1; j++)
+            {
+                
+                positions.Add(pos);
+                pos += new Vector3(2f, 0f, 0f);
+                Debug.Log(pos);
+            }
+            pos += new Vector3(-square*2f, 0f, 5f);
+        }
+
+        return positions;
     }
 
 }

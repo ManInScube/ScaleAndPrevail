@@ -26,7 +26,7 @@ public class UnitModel : MonoBehaviour
         RangeMech
     }
 
-
+     Type unitType;
 
     void Start()
     {

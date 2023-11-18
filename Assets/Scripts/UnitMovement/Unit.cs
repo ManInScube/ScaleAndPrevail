@@ -10,8 +10,15 @@ public class Unit : MonoBehaviour
 
     private Animator animator;
 
+/*    private UnitModel Model { get; set; }
+    private UnitView View { get; set; }
 
-
+    public Unit(UnitModel model, UnitView view)
+    {
+        Model = model;
+        View = view;
+    }*/
+   
 
     protected void Start()
     {
@@ -23,6 +30,8 @@ public class Unit : MonoBehaviour
         {
             Debug.Log("There's no animator");
         }
+
+       // View.ViewTest("HOH");
     }
 
     void Update()

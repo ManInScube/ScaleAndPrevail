@@ -4,6 +4,5 @@ using UnityEngine;
 
 public class MeleeUnits : Unit
 {
-    // Start is called before the first frame update
 
 }
