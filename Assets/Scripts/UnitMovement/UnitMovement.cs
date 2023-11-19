@@ -29,11 +29,11 @@ public class UnitMovement : MonoBehaviour
         {
             SetPosition();
         }
-
+/*
         if (isMoving)
         {
             MoveSquad(destination);
-        }
+        }*/
     }
 
     void SetPosition()
@@ -63,34 +63,24 @@ public class UnitMovement : MonoBehaviour
                     TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
                 }
                 destination = hit.point;
-                isMoving = true;
-                //Debug.Log(unitModel.target);
             }
+
+
+            MoveSquad(destination);
         }
     }
 
     private void MoveSquad(Vector3 dest)
     {
-        /*            foreach (Unit unit in units)
-                    {
-                        unit.MoveToPoint(dest);
 
-                        if (unit.gameObject.transform.position == dest)
-                        {
-                            isMoving = false;
-                        }
-                    }*/
         List<Vector3> positions = CalculatePositions(dest);
         for (int i= 0; i<=units.Length; i++)
         {
             units[i].MoveToPoint(positions[i]);
-
-/*            if (unit.gameObject.transform.position == dest)
-            {
-                isMoving = false;
-            }*/
-            //dest += new Vector3(1f, 0f, 0f);
         }
+
+
+
     }
 
     public void SwitchSquad(UnitManager.Units unit)

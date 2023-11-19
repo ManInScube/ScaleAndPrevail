@@ -36,7 +36,10 @@ public class Unit : MonoBehaviour
 
     void Update()
     {
-
+        if (agent.destination == this.transform.position)
+        {
+            animator.SetBool("isWalking", false);
+        }
     }
 
     public void MoveToPoint(Vector3 dest)
@@ -46,5 +49,7 @@ public class Unit : MonoBehaviour
             animator.SetBool("isWalking", true);
         }
         agent.SetDestination(dest);
+
+  
     }
 }
