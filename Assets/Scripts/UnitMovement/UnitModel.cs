@@ -6,17 +6,25 @@ public class UnitModel : MonoBehaviour
 {
     public float attackSpeed = 1.1f;
     public float attackDamage = 10f;
-    private float attackRange = 5f;
+    public float attackRange = 5f;
 
-    private float dps;
+    //private float Dps { get; set; }
 
     private bool isAttacking = false;
-    private Enemy enemy;
+/*    private Enemy enemy;
     public Enemy target = null;
+*/
 
-    private UnitMovement um;
+    //private Animator animator;
 
-    private Animator animator;
+    private int Hp { get; set; }
+    private int MaxHp { get; set; }
+
+
+    public UnitModel(int maxHp)
+    {
+        MaxHp = maxHp;
+    }
 
     public enum Type
     {
@@ -30,17 +38,10 @@ public class UnitModel : MonoBehaviour
 
     void Start()
     {
-        try
-        {
-            animator = GetComponent<Animator>();
-        }
-        catch
-        {
-            Debug.Log("There's no animator");
-        }
+
     }
 
-    private void OnEnable()
+/*    private void OnEnable()
     {
         UnitMovement.TargetAction += TargetHandler;
     }
@@ -48,16 +49,16 @@ public class UnitModel : MonoBehaviour
     private void TargetHandler(Enemy en)
     {
         target = en;
-    }
+    }*/
 
     private void Awake()
     {
-        enemy = GetComponent<Enemy>();
+        //enemy = GetComponent<Enemy>();
     }
 
     void Update()
     {
-        if (target!=null)
+/*        if (target!=null)
         {
             
             if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
@@ -69,10 +70,10 @@ public class UnitModel : MonoBehaviour
                 Attack();
             }
 
-        }
+        }*/
     }
 
-    private void Attack()
+/*    private void Attack()
     {
         if (animator) 
         {
@@ -84,5 +85,5 @@ public class UnitModel : MonoBehaviour
             Debug.Log("Attacking");
         
         //return attackDamage * attackSpeed * Time.deltaTime;
-    }
+    }*/
 }

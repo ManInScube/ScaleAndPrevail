@@ -2,18 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyManager : MonoBehaviour
 {
     // Start is called before the first frame update
     float health;
 
     float maxHealth = 100;
 
+
+    //сделать что-то типа EnemyView
     [SerializeField] uint enemiesCount;
     [SerializeField] uint mindStrength;
-    private uint Complexity { get { return (uint)Mathf.Floor(uintsCount / enemiesCount * 10); } } //TODO: доработать сделать в string значение
+    //private uint Complexity { get { return (uint)Mathf.Floor(uintsCount / enemiesCount * 10); } } //TODO: доработать сделать в string значение
 
     private uint uintsCount;
+
+/*    public enum EnemyType
+    {
+        Melee,
+        Range,
+        King
+    }*/
+
+    //public EnemyType enemyType;
 
     void Start()
     {

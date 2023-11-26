@@ -29,11 +29,6 @@ public class UnitMovement : MonoBehaviour
         {
             SetPosition();
         }
-/*
-        if (isMoving)
-        {
-            MoveSquad(destination);
-        }*/
     }
 
     void SetPosition()
@@ -52,21 +47,50 @@ public class UnitMovement : MonoBehaviour
             if (hit.transform.CompareTag("Ground"))
             {
                 destination = hit.point;
-                isMoving = true;
+                MoveSquad(destination);
+
             }
             if (hit.transform.CompareTag("Enemy"))
             {
                 Debug.Log("Enemy found");
+                destination = hit.point;
+
+
+
                 foreach (Unit unit in units)
                 {
-                    //unitModel.GetComponent<UnitModel>().target = hit.collider.transform.gameObject.GetComponent<Enemy>();
                     TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
+
+                    if (Vector3.Distance(unit.transform.position, hit.transform.position) > unit.attackRange)
+                    {
+                        unit.MoveToPoint(destination);
+                    }
+                    else
+                    {
+
+                        return;
+ /*                       unit.isAttacking = true;
+                        unit.agent.isStopped = true;
+                        unit.agent.ResetPath();*/
+                    }
+
                 }
-                destination = hit.point;
+
+/*                foreach (Unit unit in units)
+                {
+                    unit.MoveToPoint(destination);
+                    TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
+*//*
+                    if (Vector3.Distance(unit.transform.position, hit.transform.position) > unit.attackRange)
+                    {
+                        //unit.Attack();
+                        TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
+
+                    }*//*
+                }*/
             }
 
 
-            MoveSquad(destination);
         }
     }
 
@@ -78,8 +102,6 @@ public class UnitMovement : MonoBehaviour
         {
             units[i].MoveToPoint(positions[i]);
         }
-
-
 
     }
 
@@ -109,7 +131,7 @@ public class UnitMovement : MonoBehaviour
         Debug.Log(square);
         Vector3 pos;
         pos = dest;
-        for (int i = 0; i<=square - 1; i++)
+        for (int i = 0; i<=units.Length; i++)
         {
             for (int j = 0; j <= square - 1; j++)
             {
