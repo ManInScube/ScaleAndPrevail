@@ -16,6 +16,8 @@ public class Enemy : MonoBehaviour
     public bool isDead;
 
     public static event Action OnKingsDead;
+    public static event Action OnEnemyDead;
+
 
     public enum EnemyType
     {
@@ -67,10 +69,13 @@ public class Enemy : MonoBehaviour
             health -= damage;
         else
         {
+
             if (this.enemyType == EnemyType.King)
             {
                 OnKingsDead?.Invoke();
+                //OnEnemyDead?.Invoke();
             }
+
             isDead = true;
             Destroy(gameObject, 1f);
         }

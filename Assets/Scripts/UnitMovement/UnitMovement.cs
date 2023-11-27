@@ -48,7 +48,7 @@ public class UnitMovement : MonoBehaviour
             {
                 destination = hit.point;
                 MoveSquad(destination);
-
+                //Debug.Log()
             }
             if (hit.transform.CompareTag("Enemy"))
             {

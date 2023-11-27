@@ -60,7 +60,7 @@ public class Unit : MonoBehaviour
             else
             {
                 Attack();
-                transform.position = transform.position;
+               // transform.position = transform.position;
             }
 
         }
@@ -77,6 +77,12 @@ public class Unit : MonoBehaviour
     protected void OnEnable()
     {
         UnitMovement.TargetAction += TargetHandler;
+        Enemy.OnEnemyDead += EnemyDeadHandler;
+    }
+
+    private void EnemyDeadHandler()
+    {
+        target = null;
     }
 
     protected void TargetHandler(Enemy en)
@@ -95,9 +101,9 @@ public class Unit : MonoBehaviour
         OnAttack?.Invoke();
         float dps = attackSpeed * attackDamage * Time.deltaTime;
         target.GetComponent<Enemy>().ReceiveDamage(dps);
-        //transform.LookAt(target.transform.position);
+        transform.LookAt(target.transform.position.normalized); //new
         //agent.ResetPath();
-        agent.isStopped = true;
+        //agent.isStopped = true;
     }
 
     public void ReceiveDamage(float damage)

@@ -62,6 +62,8 @@ public class UnitManager : MonoBehaviour
             {
                 enemy.DeleteEnemy();
                 //enemy.transform.SetParent(army);
+
+                // TODO: -move to separate function
                 enemy.gameObject.AddComponent<MeleeUnits>();
                 NavMeshAgent newAgent = enemy.gameObject.AddComponent<NavMeshAgent>();
                 enemy.GetComponent<MeleeUnits>().agent = newAgent;
