@@ -52,10 +52,8 @@ public class UnitMovement : MonoBehaviour
             }
             if (hit.transform.CompareTag("Enemy"))
             {
-                Debug.Log("Enemy found");
+                //Debug.Log("Enemy found");
                 destination = hit.point;
-
-
 
                 foreach (Unit unit in units)
                 {
@@ -67,27 +65,10 @@ public class UnitMovement : MonoBehaviour
                     }
                     else
                     {
-
                         return;
- /*                       unit.isAttacking = true;
-                        unit.agent.isStopped = true;
-                        unit.agent.ResetPath();*/
                     }
 
                 }
-
-/*                foreach (Unit unit in units)
-                {
-                    unit.MoveToPoint(destination);
-                    TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
-*//*
-                    if (Vector3.Distance(unit.transform.position, hit.transform.position) > unit.attackRange)
-                    {
-                        //unit.Attack();
-                        TargetAction?.Invoke(hit.collider.transform.gameObject.GetComponent<Enemy>());
-
-                    }*//*
-                }*/
             }
 
 

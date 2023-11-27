@@ -1,6 +1,7 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Enemy : MonoBehaviour
 {
@@ -11,6 +12,10 @@ public class Enemy : MonoBehaviour
 
     public float health;
     public float maxHealth = 100f;
+
+    public bool isDead;
+
+    public static event Action OnKingsDead;
 
     public enum EnemyType
     {
@@ -32,11 +37,15 @@ public class Enemy : MonoBehaviour
         Attack();
     }
 
+   
+
+
+    //сделать по аттак рендж как в castle defense или по OnCollisionEnter
     void Attack()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 1f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
 
-        Unit unit = hitColliders[0].GetComponent<Unit>();
+        Unit unit = hitColliders[1].GetComponent<Unit>();
         float dps = attackSpeed * attackDamage * Time.deltaTime;
 
         if (unit)
@@ -48,15 +57,31 @@ public class Enemy : MonoBehaviour
 
     }
 
+
+
+
+
     public void ReceiveDamage(float damage)
     {
         if (health >= 0)
             health -= damage;
         else
+        {
+            if (this.enemyType == EnemyType.King)
+            {
+                OnKingsDead?.Invoke();
+            }
+            isDead = true;
             Destroy(gameObject, 1f);
+        }
         //Debug.Log("DIED");
 
-        Debug.Log(health);
+        //Debug.Log(health);
 
+    }
+
+    public void DeleteEnemy()
+    {
+        Destroy(this);
     }
 }

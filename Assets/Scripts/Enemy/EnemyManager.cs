@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class EnemyManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     float health;
 
     float maxHealth = 100;
@@ -17,47 +17,40 @@ public class EnemyManager : MonoBehaviour
 
     private uint uintsCount;
 
-/*    public enum EnemyType
-    {
-        Melee,
-        Range,
-        King
-    }*/
+    public Enemy[] enemies;
 
-    //public EnemyType enemyType;
+    //Enemy King => (Enemy.EnemyType.King)Enemy.EnemyType.King;
 
     void Start()
     {
-        health = maxHealth;
+        enemies = gameObject.GetComponentsInChildren<Enemy>();
     }
 
     void Update()
     {
-        
+       // WinCondition();
     }
 
-    public void ReceiveDamage(float damage)
+    private void KingsDeathHandler()
     {
-        if(health >= 0)
-            health -= damage;
-        else
-            Debug.Log("DIED");
-
-        Debug.Log(health);
-
-    }
-
-    public void Die()
-    {
-
+        Debug.Log("Castle captured");
     }
 
     public void WinCondition()
     {
-        if (enemiesCount < enemiesCount / 2)
+/*        if (enemiesCount < enemiesCount / 2)
         {
 
-        }
+        }*/
+
+/*        foreach(Enemy enemy in enemies)
+        {
+            if (enemy.enemyType == Enemy.EnemyType.King && enemy.isDead)
+            {
+                Debug.Log("Castle captured");
+            }
+        }*/
+
     }
 
 

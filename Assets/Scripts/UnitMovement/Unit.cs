@@ -64,25 +64,12 @@ public class Unit : MonoBehaviour
             }
 
         }
-        /*        if (target != null)
-                {
-
-                    if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        Attack();
-                    }
-
-                }*/
 
         //if ((agent.destination - this.transform.position).sqrMagnitude <= 1f)
         if (agent.destination == this.transform.position)
         {
             OnAgentStopped?.Invoke();
-            Debug.Log(gameObject.name + " stopped");
+           // Debug.Log(gameObject.name + " stopped");
         }
     }
 

@@ -88,6 +88,7 @@ public class UnitView : MonoBehaviour
 
     float CalculateHealthBar()
     {
+        //Debug.Log("Calculation");
         return controller.health / controller.maxHealth;
     }
 
