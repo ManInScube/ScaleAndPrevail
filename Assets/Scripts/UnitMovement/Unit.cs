@@ -18,9 +18,10 @@ public class Unit : MonoBehaviour
     public event Action OnAttack;
     public event Action OnWalk;
 
-    private float attackSpeed = 1.1f;
-    private float attackDamage = 10f;
-    public float attackRange = 2f;
+    [Header("Attack")]
+    [SerializeField] private float attackSpeed = 1.1f;
+    [SerializeField]private float attackDamage = 10f;
+    public float attackRange = 5f;
 
     UnitView view;
 
@@ -60,7 +61,6 @@ public class Unit : MonoBehaviour
             else
             {
                 Attack();
-               // transform.position = transform.position;
             }
 
         }
@@ -69,7 +69,6 @@ public class Unit : MonoBehaviour
         if (agent.destination == this.transform.position)
         {
             OnAgentStopped?.Invoke();
-           // Debug.Log(gameObject.name + " stopped");
         }
     }
 
@@ -102,8 +101,6 @@ public class Unit : MonoBehaviour
         float dps = attackSpeed * attackDamage * Time.deltaTime;
         target.GetComponent<Enemy>().ReceiveDamage(dps);
         transform.LookAt(target.transform.position.normalized); //new
-        //agent.ResetPath();
-        //agent.isStopped = true;
     }
 
     public void ReceiveDamage(float damage)

@@ -6,9 +6,10 @@ using System;
 public class Enemy : MonoBehaviour
 {
 
-    private float attackSpeed = 1.1f;
-    private float attackDamage = 10f;
-    private float attackRange = 5f;
+    [Header("Attack")]
+    [SerializeField] private float attackSpeed = 1.1f;
+    [SerializeField] private float attackDamage = 10f;
+    [SerializeField] private float attackRange = 5f;
 
     public float health;
     public float maxHealth = 100f;
@@ -17,6 +18,10 @@ public class Enemy : MonoBehaviour
 
     public static event Action OnKingsDead;
     public static event Action OnEnemyDead;
+
+    public event Action OnAgentStopped;
+    public event Action OnAttack;
+    public event Action OnWalk;
 
 
     public enum EnemyType
@@ -52,6 +57,7 @@ public class Enemy : MonoBehaviour
 
         if (unit)
         {
+            OnAttack?.Invoke();
             transform.LookAt(unit.transform);
             unit.ReceiveDamage(dps);
             Debug.Log("Enemy is attacking");

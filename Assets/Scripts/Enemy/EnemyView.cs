@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 
-public class UnitView : MonoBehaviour
+public class EnemyView : MonoBehaviour
 {
     // Start is called before the first frame update
 
     private Animator animator;
 
-    private Unit controller;
+    private Enemy controller;
 
     public Slider healthBar;
     public Image filler;
@@ -20,6 +21,8 @@ public class UnitView : MonoBehaviour
 
     private Camera mainCamera;
 
+    private NavMeshAgent agent;
+
 
     private void Awake()
     {
@@ -27,7 +30,7 @@ public class UnitView : MonoBehaviour
         mainCamera = Camera.main;
         
  
-        controller = GetComponent<Unit>();
+        controller = GetComponent<Enemy>();
 
         
         healthBar.value = CalculateHealthBar();
@@ -40,6 +43,17 @@ public class UnitView : MonoBehaviour
         {
             Debug.Log("No Animator");
         }
+
+        try
+        {
+            agent = gameObject.GetComponent<NavMeshAgent>();
+        }
+        catch
+        {
+            Debug.Log("No NavMeshAgent");
+        }
+
+
     }
 
 
@@ -95,10 +109,4 @@ public class UnitView : MonoBehaviour
         return controller.health / controller.maxHealth;
     }
 
-/*    public void SetMaxHealth(float health)
-    {
-        controller.maxHealth = health;
-        curHealth = health;
-        healthBar.value = CalculateHealthBar();
-    }*/
 }
