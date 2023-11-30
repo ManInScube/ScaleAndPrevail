@@ -17,6 +17,8 @@ public class Unit : MonoBehaviour
     public event Action OnAgentStopped;
     public event Action OnAttack;
     public event Action OnWalk;
+    public event Action OnIdle;
+
 
     [Header("Attack")]
     [SerializeField] private float attackSpeed = 1.1f;
@@ -54,7 +56,7 @@ public class Unit : MonoBehaviour
         if (target != null)
         {
 
-            if (Vector3.Distance(transform.position, target.transform.position) > attackRange)
+            if (Vector3.Distance(transform.position, target.transform.position) > attackRange || target.isDead)
             {
                 return;
             }
@@ -66,7 +68,7 @@ public class Unit : MonoBehaviour
         }
 
         //if ((agent.destination - this.transform.position).sqrMagnitude <= 1f)
-        if (agent.destination == this.transform.position)
+        if ((agent.destination - this.transform.position).sqrMagnitude <= 1f)
         {
             OnAgentStopped?.Invoke();
         }
@@ -101,6 +103,11 @@ public class Unit : MonoBehaviour
         float dps = attackSpeed * attackDamage * Time.deltaTime;
         target.GetComponent<Enemy>().ReceiveDamage(dps);
         transform.LookAt(target.transform.position.normalized); //new
+
+        if (target.isDead)
+        {
+            OnIdle?.Invoke();
+        }
     }
 
     public void ReceiveDamage(float damage)

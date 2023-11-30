@@ -125,4 +125,11 @@ public class UnitMovement : MonoBehaviour
         return positions;
     }
 
+    public void UpdateSquad()
+    {
+        units = GameObject.FindObjectsOfType<Unit>();
+    }
+
+
+
 }

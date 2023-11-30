@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 
 
@@ -60,13 +61,39 @@ public class UnitManager : MonoBehaviour
         {
             if (enemy.enemyType != Enemy.EnemyType.King)
             {
-                enemy.DeleteEnemy();
                 //enemy.transform.SetParent(army);
+                enemy.DeleteEnemy();
 
                 // TODO: -move to separate function
                 enemy.gameObject.AddComponent<MeleeUnits>();
                 NavMeshAgent newAgent = enemy.gameObject.AddComponent<NavMeshAgent>();
                 enemy.GetComponent<MeleeUnits>().agent = newAgent;
+                enemy.GetComponent<UnitView>().enabled = true;
+                enemy.GetComponent<EnemyView>().enabled = false;
+                enemy.tag = "Untagged";
+                enemy.GetComponent<UnitView>().UpdateComponents();
+
+                unitMovement.UpdateSquad();
+                //
+                //enemy.gameObject.AddComponent<UnitView>();
+                //enemy.GetComponent<UnitView>().filler = enemy.gameObject.transform.Find("/Health/HealthBar/Fill Area/Fill").GetComponent<Image>();
+                //Destroy(enemy.gameObject.GetComponent<EnemyView>());
+
+
+
+                //view.filler = enemy.transform.Find("/Health/HealthBar/Fill Area/Fill").gameObject.GetComponent<Image>();
+                //
+
+
+                /*                enemy.DeleteEnemy();
+                                enemy.gameObject.AddComponent<MeleeUnits>();
+                                NavMeshAgent newAgent = enemy.gameObject.AddComponent<NavMeshAgent>();
+                                enemy.GetComponent<MeleeUnits>().agent = newAgent;
+                                enemy.GetComponent<Unit>().enabled = true;
+                                enemy.GetComponent<UnitView>().enabled = true;
+                                enemy.GetComponent<EnemyView>().enabled = false;*/
+
+
             }
             potentialArmy = null;
         }

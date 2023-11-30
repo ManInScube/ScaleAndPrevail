@@ -95,4 +95,7 @@ public class Enemy : MonoBehaviour
     {
         Destroy(this);
     }
+
+
+    //скрипт которые подбирает и настраивает скрипыт при усыновлении в отряд
 }

@@ -60,7 +60,7 @@ public class EnemyView : MonoBehaviour
     private void FixedUpdate()
     {
         healthBar.value = CalculateHealthBar();
-        filler.color = healthBar.value > 0.3 ? Color.green : Color.red;
+        filler.color = Color.red;
         healthBar.transform.LookAt(mainCamera.transform);
     }
 

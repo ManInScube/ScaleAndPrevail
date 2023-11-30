@@ -32,21 +32,18 @@ public class UnitView : MonoBehaviour
         
         healthBar.value = CalculateHealthBar();
 
-        try
-        {
+
             animator = GetComponent<Animator>();
-        }
-        catch
-        {
+ 
             Debug.Log("No Animator");
-        }
+    
     }
 
 
     private void FixedUpdate()
     {
         healthBar.value = CalculateHealthBar();
-        filler.color = healthBar.value > 0.3 ? Color.green : Color.red;
+        filler.color = Color.green;
         healthBar.transform.LookAt(mainCamera.transform);
     }
 
@@ -57,6 +54,7 @@ public class UnitView : MonoBehaviour
             controller.OnAgentStopped += AgentStopHandler;
             controller.OnAttack += UnitAttackHandler;
             controller.OnWalk += UnitWalkHandler;
+            controller.OnIdle += IdleHandler;
         }
     }
 
@@ -80,7 +78,13 @@ public class UnitView : MonoBehaviour
         //animator.SetTrigger("isAttackingTrigger");
         animator.SetBool("isWalking", false);
         animator.SetBool("isAttacking", true);
+    }
 
+    public void IdleHandler()
+    {
+        //animator.SetTrigger("isAttackingTrigger");
+        animator.SetBool("isWalking", false);
+        animator.SetBool("isAttacking", false);
     }
 
     public void UnitWalkHandler()
@@ -94,6 +98,18 @@ public class UnitView : MonoBehaviour
         //Debug.Log("Calculation");
         return controller.health / controller.maxHealth;
     }
+
+    public void UpdateComponents()
+    {
+        controller = controller = GetComponent<Unit>();
+        animator = GetComponent<Animator>();
+        controller.OnAgentStopped += AgentStopHandler;
+        controller.OnAttack += UnitAttackHandler;
+        controller.OnWalk += UnitWalkHandler;
+        controller.OnIdle += IdleHandler;
+    }
+
+
 
 /*    public void SetMaxHealth(float health)
     {
