@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public class Enemy : MonoBehaviour
 {
@@ -22,6 +23,9 @@ public class Enemy : MonoBehaviour
     public event Action OnAgentStopped;
     public event Action OnAttack;
     public event Action OnWalk;
+
+    private Unit currentTarget = null;
+    Collider[] units;
 
 
     public enum EnemyType
@@ -50,17 +54,31 @@ public class Enemy : MonoBehaviour
     //сделать по аттак рендж как в castle defense или по OnCollisionEnter
     void Attack()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 2f);
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, attackRange);
 
-        Unit unit = hitColliders[1].GetComponent<Unit>();
         float dps = attackSpeed * attackDamage * Time.deltaTime;
+        
+       for (int i = 0; i <= hitColliders.Length; i++)
+        {
+            if (hitColliders[i].GetComponent<Unit>())
+            {
+                currentTarget = hitColliders[i].GetComponent<Unit>();
+                break;
+            }
+        }
 
-        if (unit)
+
+        if (currentTarget)
         {
             OnAttack?.Invoke();
-            transform.LookAt(unit.transform);
-            unit.ReceiveDamage(dps);
+            transform.LookAt(currentTarget.transform);
+            currentTarget.ReceiveDamage(dps);
             Debug.Log("Enemy is attacking");
+        }
+
+        else
+        {
+            return;
         }
 
     }
@@ -95,6 +113,20 @@ public class Enemy : MonoBehaviour
     {
         Destroy(this);
     }
+
+    private void MoveToUnit()
+    {
+
+    }
+
+/*    private void OnTriggerEnter(Collider other)
+    {
+        Unit kek = other.GetComponent<Unit>();
+        if (kek)
+        {
+
+        }
+    }*/
 
 
     //скрипт которые подбирает и настраивает скрипыт при усыновлении в отряд

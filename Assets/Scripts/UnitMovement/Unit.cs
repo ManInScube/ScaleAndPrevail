@@ -18,6 +18,8 @@ public class Unit : MonoBehaviour
     public event Action OnAttack;
     public event Action OnWalk;
     public event Action OnIdle;
+    public static event Action OnDeath;
+
 
 
     [Header("Attack")]
@@ -115,7 +117,11 @@ public class Unit : MonoBehaviour
         if (health >= 0)
             health -= damage;
         else
+        {
+            OnDeath?.Invoke();
             Destroy(gameObject, 1f);
+        }
+
             //Debug.Log("DIED");
 
         Debug.Log(health);

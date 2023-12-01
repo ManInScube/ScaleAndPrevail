@@ -29,6 +29,18 @@ public class UnitMovement : MonoBehaviour
         {
             SetPosition();
         }
+
+        UpdateSquad();
+    }
+
+    private void OnEnable()
+    {
+        Unit.OnDeath += UpdateSquad;
+    }
+
+    private void OnDisable()
+    {
+        Unit.OnDeath -= UpdateSquad;
     }
 
     void SetPosition()

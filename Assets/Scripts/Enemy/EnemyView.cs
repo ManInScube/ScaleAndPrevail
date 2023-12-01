@@ -16,6 +16,8 @@ public class EnemyView : MonoBehaviour
     public Slider healthBar;
     public Image filler;
 
+    public Image KingSign;
+
     public float curHealth;
    // public float maxHealth;
 
@@ -62,6 +64,12 @@ public class EnemyView : MonoBehaviour
         healthBar.value = CalculateHealthBar();
         filler.color = Color.red;
         healthBar.transform.LookAt(mainCamera.transform);
+
+        if (this.controller.enemyType == Enemy.EnemyType.King)
+        {
+            KingSign.transform.LookAt(mainCamera.transform);
+        }
+
     }
 
     private void OnEnable()
